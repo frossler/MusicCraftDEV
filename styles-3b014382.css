@@ -1,0 +1,196 @@
+:root {
+  color-scheme: dark;
+  --cream: #f4e6cd;
+  --gold: #e9ad50;
+  --display: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #040a12; }
+body { min-width: 320px; font-family: Arial, Helvetica, sans-serif; }
+a { color: inherit; -webkit-tap-highlight-color: transparent; }
+a:focus-visible { outline: 3px solid #f7ca7d; outline-offset: 5px; }
+
+.transition-stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  isolation: isolate;
+  overflow: hidden;
+}
+.screen { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 320px; overflow: hidden; isolation: isolate; }
+.home-header, .shop-header { position: absolute; z-index: 2; top: 0; left: 0; width: 100%; height: clamp(82px, 12vh, 118px); display: flex; align-items: center; padding: 18px clamp(22px, 5vw, 72px); background: linear-gradient(180deg, rgba(2, 7, 14, .78), rgba(2, 7, 14, 0)); }
+.home-header { justify-content: space-between; }
+.home-brand, .shop-brand { display: block; line-height: 0; }
+.home-brand { width: clamp(145px, 20vw, 235px); }
+.home-brand img, .shop-brand img { display: block; width: 100%; height: auto; }
+.shop-trigger { display: inline-flex; align-items: center; justify-content: center; min-width: 120px; min-height: 46px; padding: 10px 22px; border: 1px solid rgba(237, 180, 91, .88); border-radius: 4px; background: rgba(3, 9, 15, .48); color: var(--cream); font: 500 20px/1 var(--display); letter-spacing: .12em; text-decoration: none; text-shadow: 0 2px 12px #000; transition: background-color .2s, color .2s, transform .2s; }
+.shop-trigger:hover { color: #17100a; background: linear-gradient(180deg, #f8cd82, #d99839); transform: translateY(-1px); }
+
+.shop-screen { z-index: 3; pointer-events: none; }
+.shop-header { justify-content: flex-start; opacity: 0; transform: translateY(-8px); transition: opacity 260ms ease, transform 360ms ease; }
+.transition-stage.inside .shop-screen { pointer-events: auto; }
+.transition-stage.inside .shop-header { opacity: 1; transform: translateY(0); transition-delay: 260ms; }
+.shop-title { position: relative; z-index: 1; display: inline-block; color: #fff0d4; font: 500 clamp(22px, 3vw, 34px)/1 var(--display); letter-spacing: .13em; text-shadow: 0 2px 13px rgba(0, 0, 0, .75); }
+.shop-title::after { content: ''; position: absolute; left: 0; right: .13em; bottom: -11px; height: 2px; background: linear-gradient(90deg, var(--gold), rgba(233, 173, 80, 0)); transform-origin: left; transition: transform .25s; }
+.shop-brand { position: absolute; left: 50%; width: clamp(155px, 20vw, 230px); transform: translateX(-50%); }
+
+@media (max-width: 600px) {
+  .home-header, .shop-header { height: 78px; padding: 12px 20px; }
+  .home-brand { width: 135px; }
+  .shop-trigger { min-width: 86px; min-height: 44px; padding: 9px 13px; font-size: 17px; }
+  .shop-title { font-size: 22px; letter-spacing: .1em; }
+  .shop-brand { width: 132px; }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-screen, .shop-header { transition-duration: .01ms; }
+}
+
+.panorama { position:absolute; left:50%; bottom:var(--home-bottom); display:block; width:var(--scene-width); max-width:none; height:auto; transform:translate3d(-50%,0,0); transition:transform 1100ms cubic-bezier(.48,.03,.22,1); }
+.is-shop .panorama { transform:translate3d(-50%,var(--travel),0); }
+.home-screen { pointer-events:none; }
+.home-header { pointer-events:auto; transition:opacity 180ms ease; }
+.inside .home-header { pointer-events:none; opacity:0; }
+.back { margin-left:auto; color:var(--cream); padding:12px; }
+#period { position:absolute; bottom:12px; right:16px; z-index:5; padding:7px 9px; color:#f4e6cd; background:#111b25; border:1px solid #897654; border-radius:4px; }
+@media (prefers-reduced-motion:reduce) { .panorama,.home-header,.shop-header { transition:none; } }
+
+.upper-sky {
+  height: var(--sky-height);
+  background: var(--sky-image) center top / 100% 147.05% no-repeat;
+}
+.landscape {
+  display: block;
+  width: 100%;
+  height: var(--landscape-height);
+  object-fit: cover;
+  object-position: center bottom;
+}
+@media (max-width: 360px) {
+  .shop-brand { width: 112px; }
+  .shop-header { padding-inline: 14px; }
+}
+
+.road-signs {
+  position: absolute;
+  z-index: 4;
+  right: clamp(22px, 6vw, 92px);
+  bottom: clamp(62px, 10vh, 110px);
+  display: grid;
+  gap: 9px;
+  width: clamp(190px, 24vw, 330px);
+}
+  .road-signs { transition: opacity 180ms ease; }
+.road-sign {
+  display: grid;
+  align-items: center;
+  min-height: 44px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+.road-sign img { display: block; width: 100%; height: auto; border-radius: 3% / 12%; }
+a.road-sign { pointer-events: auto; }
+a.road-sign:hover img { filter: brightness(1.08); }
+.inside .road-signs { opacity: 0; }
+.inside a.road-sign { pointer-events: none; }
+@media (max-width: 600px) {
+  .road-signs { right: 16px; bottom: 50px; width: min(210px, 54vw); gap: 2px; }
+}
+
+.workshop-art {
+  position: absolute; inset: 0;
+  background: center / cover no-repeat url("assets/workshop.png");
+  transform: translateY(100%);
+  transition: transform 1100ms cubic-bezier(.48,.03,.22,1);
+  pointer-events: none;
+}
+.is-workshop .workshop-art { transform: translateY(0); }
+.is-workshop .panorama { transform: translate3d(-50%,-100dvh,0); }
+.section-sign {
+  width: clamp(148px, 16vw, 260px);
+  position: absolute; top: 12px; left: clamp(12px, 2vw, 34px);
+  filter: drop-shadow(1px 4px 4px #0008);
+}
+.section-sign img { width: 100%; display: block; }
+.return-strip { position:absolute; inset:auto 0 0; height:30%; min-height:44px; border-radius:5px; }
+.return-strip:hover { background:#fff2; }
+@media (max-width:600px) {
+  .shop-brand { left:auto; right:14px; transform:none; width:110px; }
+  .workshop-art { background-position: 58% center; }
+}
+@media (prefers-reduced-motion: reduce) { .workshop-art { transition:none; } }
+
+.is-workshop .section-sign {
+  left: auto;
+  right: clamp(12px, 2vw, 34px);
+}
+@media (max-width: 600px) {
+  .is-workshop .shop-brand {
+    left: 14px;
+    right: auto;
+  }
+}
+
+.contact-icons { display: none; }
+@media (max-width: 600px) {
+  .home-header { height: auto; padding: 8px 10px; gap: 6px; justify-content: start; }
+  .home-brand { width: 270px; min-width: 0; flex: 0 1 270px; }
+  .contact-icons { display: flex; flex: none; align-items: center; gap: 7px; }
+  .contact-icons svg { display: block; width: 26px; height: 26px; }
+  .road-signs { left: 50%; right: auto; bottom: auto; top: 50%; transform: translate(-50%, -50%); gap: 8px; }
+}
+.contact-icons { display:flex; align-items:center; gap:7px; }
+.contact-icons a { display:grid; place-items:center; }
+.contact-icons svg { width:26px; height:26px; display:block; }
+.home-header { justify-content:flex-start; gap:10px; }
+
+
+
+.shop-screen .shop-header {
+  --art-height: clamp(62px, calc(15vw - 51px), 132px);
+  --logo-height: calc(var(--art-height) * .8);
+  --edge: clamp(14px, 2vw, 24px);
+  height: auto;
+  min-height: calc(var(--art-height) + 32px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 16px var(--edge) 16px clamp(24px, 3vw, 36px);
+}
+.shop-screen .shop-brand { position: static; transform: none; width: auto; }
+.shop-screen .shop-brand img { height: var(--logo-height); width: auto; }
+.shop-screen .section-sign {
+  left: auto; right: var(--edge); top: 50%; transform: translateY(-50%); width: auto;
+}
+.shop-screen .section-sign img { width: auto; height: var(--art-height); }
+.shop-screen .contact-icons { gap: 12px; }
+.shop-screen .contact-icons svg { width: 43px; height: 43px; }
+@media (min-width: 601px) {
+  .is-workshop .shop-header {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+    padding-inline: var(--edge);
+  }
+  .is-workshop .shop-brand { grid-column: 2; }
+  .is-workshop .contact-icons {
+    grid-column: 3; justify-content: center;
+    padding-right: calc(var(--art-height) * 1.328);
+    gap: clamp(6px, 1vw, 12px);
+  }
+  .is-workshop .contact-icons svg { width: clamp(24px, 3vw, 38px); height: auto; }
+}
+@media (max-width: 600px) {
+  .home-header { gap: 6px; }
+  .shop-screen .shop-header {
+    --art-height: 76px; --logo-height: 57px; --edge: 14px;
+    padding: 10px var(--edge) 10px clamp(10px, calc(100vw - 306px), 24px);
+    min-height: 96px;
+  }
+  .shop-screen .contact-icons { display: none; }
+}
