@@ -136,3 +136,12 @@ a.road-sign:hover img { filter: brightness(1.08); }
     right: auto;
   }
 }
+
+.contact-icons { display: none; }
+@media (max-width: 600px) {
+  .home-header { height: auto; padding: 8px 10px; gap: 6px; justify-content: start; }
+  .home-brand { width: 270px; min-width: 0; flex: 0 1 270px; }
+  .contact-icons { display: flex; flex: none; align-items: center; gap: 7px; }
+  .contact-icons svg { display: block; width: 26px; height: 26px; }
+  .road-signs { left: 50%; right: auto; bottom: auto; top: 50%; transform: translate(-50%, -50%); gap: 8px; }
+}
