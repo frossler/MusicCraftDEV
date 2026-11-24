@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#06111e">
+    <meta name="description" content="Prototipo de transición de MUSIC CRAFT a SHOP.">
+    <title>MUSIC CRAFT | Inicio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="transition-stage" id="transitionStage">
+      <div class="panorama" aria-hidden="true">
+        <div class="upper-sky"></div>
+        <img class="landscape" id="panorama" alt="">
+      </div>
+
+      <div class="workshop-art" aria-hidden="true"></div>
+      <section class="screen home-screen" id="homeScreen" aria-label="Inicio MUSIC CRAFT">
+        <header class="home-header">
+          <a class="home-brand" href="#home" aria-label="MUSIC CRAFT, volver al inicio">
+            <img src="assets/music-craft-logo.png" alt="MUSIC CRAFT" width="279" height="101">
+          </a>
+        </header>
+        <nav class="road-signs" aria-label="Secciones">
+          <a class="road-sign" href="#shop"><img src="assets/shop-sign.png" alt="Go to Shop"></a>
+          <a class="road-sign" href="#workshop"><img src="assets/workshop-sign.png" alt="Workshop"></a>
+        </nav>
+      </section>
+
+      <section class="screen shop-screen" id="shopScreen" aria-label="Sección SHOP" aria-hidden="true" inert>
+        <header class="shop-header">
+          <div class="section-sign"><img id="sectionTitle" src="assets/badge-shop.png" alt="SHOP"><a class="return-strip" href="#home" aria-label="Volver al inicio"></a></div>
+          <a class="shop-brand" href="#home" aria-label="MUSIC CRAFT, volver al inicio">
+            <img src="assets/music-craft-logo.png" alt="MUSIC CRAFT" width="279" height="101">
+          </a>
+        
+        </header>
+      </section>
+      <select id="period" aria-label="Horario de la demo"><option value="dawn">Amanecer</option><option value="day">Mediodía</option><option value="sunset">Atardecer</option><option value="night">Noche</option></select>
+    </main>
+  </body>
+</html>
