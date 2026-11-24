@@ -145,3 +145,24 @@ a.road-sign:hover img { filter: brightness(1.08); }
   .contact-icons svg { display: block; width: 26px; height: 26px; }
   .road-signs { left: 50%; right: auto; bottom: auto; top: 50%; transform: translate(-50%, -50%); gap: 8px; }
 }
+.contact-icons { display:flex; align-items:center; gap:7px; }
+.contact-icons a { display:grid; place-items:center; }
+.contact-icons svg { width:26px; height:26px; display:block; }
+.home-header { justify-content:flex-start; gap:10px; }
+.is-shop .section-sign { left:auto; right:clamp(12px,2vw,34px); }
+.is-shop .shop-header { height:auto; align-items:center; gap:10px; padding:12px clamp(12px,2vw,34px); }
+.is-shop .shop-brand { position:static; transform:none; width:clamp(310px,40vw,460px); }
+.is-workshop .shop-header .contact-icons { position:absolute; left:calc(50% + clamp(77.5px,10vw,115px) + 10px); }
+@media (min-width:601px) and (max-width:900px) {
+  .is-workshop .shop-header .contact-icons { left:50%; top:100%; transform:translateX(-50%); }
+}
+@media (max-width:600px) {
+  .home-header { gap:6px; }
+  .shop-header .contact-icons { display:none; }
+  .is-shop .shop-brand { width:min(330px,100%); }
+  .is-shop .shop-header { padding:8px 12px; }
+  .is-shop .section-sign { top:calc(100% + 4px); }
+}
+@media (min-width:510px) and (max-width:600px) {
+  .is-shop .section-sign { top:12px; }
+}
