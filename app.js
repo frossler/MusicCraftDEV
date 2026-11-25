@@ -10,22 +10,25 @@ function selectPeriod(period) {
   selector.value = period;
   panorama.src = 'assets/' + period + '.png';
   stage.style.setProperty('--sky-image', 'url("' + panorama.src + '")');
+  stage.style.setProperty('--workshop-image', 'url("assets/workshop-' + period + '.png")');
 }
 
 function frameScene() {
   const { width, height } = stage.getBoundingClientRect();
-  // Keep at least 1200 source pixels in frame, including both ends of the sign.
-  const scale = Math.max(width / 1672, Math.min(height / 941, width / 1200));
-  const landscapeHeight = 941 * scale;
-  const skyHeight = Math.max(2000 * scale, height);
-  const bottom = Math.min(0, (height - landscapeHeight) / 2);
-  stage.style.setProperty('--scene-width', 1672 * scale + 'px');
-  stage.style.setProperty('--sky-height', skyHeight + 'px');
-  stage.style.setProperty('--landscape-height', landscapeHeight + 'px');
-  stage.style.setProperty('--home-bottom', bottom + 'px');
-  stage.style.setProperty('--travel', (skyHeight + landscapeHeight - height + bottom) + 'px');
+  const isMobile = width <= 600;
+  const scale = isMobile
+    ? Math.max(width / 1672, height / 2500)
+    : Math.max(width / 1672, height / 2400);
+  const sceneWidth = 1672 * scale;
+  const sceneHeight = 2941 * scale;
+  stage.style.setProperty('--scene-width', sceneWidth + 'px');
+  stage.style.setProperty('--sky-height', '0px');
+  stage.style.setProperty('--landscape-height', sceneHeight + 'px');
+  stage.style.setProperty('--home-bottom', '0px');
+  stage.style.setProperty('--travel', Math.max(0, sceneHeight - height) + 'px');
 }
 
+const sectionBadges = {"shop": "shop-header-back.png", "workshop": "workshop-header-back.png"};
 let lastSection = 'shop';
 function syncView(moveFocus) {
   const route = location.hash.slice(1);
@@ -36,7 +39,7 @@ function syncView(moveFocus) {
   if (inside) {
     lastSection = route;
     const badge = document.querySelector('#sectionTitle');
-    badge.src = 'assets/badge-' + route + '.png';
+    badge.src = 'assets/' + sectionBadges[route];
     badge.alt = route.toUpperCase();
     document.querySelector('#shopScreen').setAttribute('aria-label', badge.alt);
   }

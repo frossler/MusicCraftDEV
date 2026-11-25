@@ -105,7 +105,7 @@ a.road-sign:hover img { filter: brightness(1.08); }
 
 .workshop-art {
   position: absolute; inset: 0;
-  background: center / cover no-repeat url("assets/workshop.png");
+  background: center / cover no-repeat var(--workshop-image, url("assets/workshop-sunset.png"));
   transform: translateY(100%);
   transition: transform 1100ms cubic-bezier(.48,.03,.22,1);
   pointer-events: none;
@@ -149,20 +149,152 @@ a.road-sign:hover img { filter: brightness(1.08); }
 .contact-icons a { display:grid; place-items:center; }
 .contact-icons svg { width:26px; height:26px; display:block; }
 .home-header { justify-content:flex-start; gap:10px; }
-.is-shop .section-sign { left:auto; right:clamp(12px,2vw,34px); }
-.is-shop .shop-header { height:auto; align-items:center; gap:10px; padding:12px clamp(12px,2vw,34px); }
-.is-shop .shop-brand { position:static; transform:none; width:clamp(310px,40vw,460px); }
-.is-workshop .shop-header .contact-icons { position:absolute; left:calc(50% + clamp(77.5px,10vw,115px) + 10px); }
-@media (min-width:601px) and (max-width:900px) {
-  .is-workshop .shop-header .contact-icons { left:50%; top:100%; transform:translateX(-50%); }
+
+
+
+.shop-screen .shop-header {
+  --art-height: clamp(62px, calc(15vw - 51px), 132px);
+  --logo-height: calc(var(--art-height) * .8);
+  --edge: clamp(14px, 2vw, 24px);
+  height: auto;
+  min-height: calc(var(--art-height) + 32px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 16px var(--edge) 16px clamp(24px, 3vw, 36px);
 }
-@media (max-width:600px) {
-  .home-header { gap:6px; }
-  .shop-header .contact-icons { display:none; }
-  .is-shop .shop-brand { width:min(330px,100%); }
-  .is-shop .shop-header { padding:8px 12px; }
-  .is-shop .section-sign { top:calc(100% + 4px); }
+.shop-screen .shop-brand { position: static; transform: none; width: auto; }
+.shop-screen .shop-brand img { height: var(--logo-height); width: auto; }
+.shop-screen .section-sign {
+  left: auto; right: var(--edge); top: 50%; transform: translateY(-50%); width: auto;
 }
-@media (min-width:510px) and (max-width:600px) {
-  .is-shop .section-sign { top:12px; }
+.shop-screen .section-sign img { width: auto; height: var(--art-height); }
+.shop-screen .contact-icons { gap: 12px; }
+.shop-screen .contact-icons svg { width: 43px; height: 43px; }
+@media (min-width: 601px) {
+  .home-header { justify-content: center; }
+  .home-brand, .is-workshop .shop-brand { display: none; }
+  .home-header .contact-icons svg { width: 31.2px; height: 31.2px; }
+
+  .is-workshop .contact-icons {
+    position: absolute;
+    right: var(--edge);
+    top: calc(50% + var(--art-height) / 2 + 16px);
+    width: calc(var(--art-height) * 1.328);
+    flex-direction: column;
+    gap: 8px;
+  }
+  .is-workshop .contact-icons svg { width: clamp(24px, 3vw, 38px); height: auto; }
+}
+@media (max-width: 600px) {
+  .home-header { gap: 6px; }
+  .shop-screen .shop-header {
+    --art-height: 76px; --logo-height: 57px; --edge: 14px;
+    padding: 10px var(--edge) 10px clamp(10px, calc(100vw - 306px), 24px);
+    min-height: 96px;
+  }
+  .shop-screen .contact-icons { display: none; }
+}
+
+
+
+@media (max-width: 600px) {
+  .home-screen .home-header {
+    top: 0;
+    left: auto;
+    right: 0;
+    width: auto;
+    background: none;
+    padding: 14px 12px 0 0;
+    justify-content: flex-end;
+    align-items: flex-start;
+    pointer-events: auto;
+  }
+  .home-screen .home-brand {
+    display: none;
+  }
+  .home-screen .contact-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .home-screen .contact-icons svg {
+    width: 34px;
+    height: 34px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,.35));
+  }
+  .home-screen .road-signs {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: max(80px, calc(env(safe-area-inset-bottom) + 54px));
+    transform: translateX(-50%);
+    width: min(240px, 72vw);
+    gap: 10px;
+  }
+  #period {
+    right: 14px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+
+/* Final corrections MAIN mobile */
+.upper-sky { display: none !important; }
+.panorama {
+  overflow: hidden;
+}
+.landscape {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+  object-position: center top;
+}
+
+@media (max-width: 600px) {
+  .home-screen .home-header {
+    top: 0;
+    left: auto;
+    right: 0;
+    width: auto;
+    height: auto;
+    background: none;
+    padding: 14px 12px 0 0;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .home-screen .home-brand {
+    display: none !important;
+  }
+  .home-screen .contact-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .home-screen .contact-icons a:nth-child(1) { order: 3; }
+  .home-screen .contact-icons a:nth-child(2) { order: 2; }
+  .home-screen .contact-icons a:nth-child(3) { order: 1; }
+  .home-screen .contact-icons svg {
+    width: 34px;
+    height: 34px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,.35));
+  }
+  .home-screen .road-signs {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: max(44px, calc(env(safe-area-inset-bottom) + 24px));
+    transform: translateX(-50%);
+    width: min(242px, 72vw);
+    gap: 10px;
+  }
+  #period {
+    right: 14px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
 }
