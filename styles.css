@@ -173,19 +173,34 @@ a.road-sign:hover img { filter: brightness(1.08); }
 .shop-screen .contact-icons { gap: 12px; }
 .shop-screen .contact-icons svg { width: 43px; height: 43px; }
 @media (min-width: 601px) {
-  .home-header { justify-content: center; }
+  .home-header { justify-content: center; background: transparent; }
+  .transition-stage:not(.is-workshop) .shop-header { background: transparent; }
+  .is-shop .shop-header { --logo-height: calc(var(--art-height) * .68); }
+  .screen .contact-icons { gap: 0; }
+  .screen .contact-icons svg { width: 36.55px; height: 36.55px; }
+  .contact-icons a + a { margin-left: 16px; }
+  .is-workshop .shop-header .contact-icons a + a { margin: 16px 0 0; }
+
+  /* Blend the upper sky across the source panorama's join at row 1999 of 2941.
+     The overlay moves with the panorama and ends above the hillside. */
+  .panorama::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    pointer-events: none;
+    background: var(--sky-image) center top / 100% 110% no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, black 68.2%, transparent 74%);
+    mask-image: linear-gradient(to bottom, black 68.2%, transparent 74%);
+  }
   .home-brand, .is-workshop .shop-brand { display: none; }
-  .home-header .contact-icons svg { width: 31.2px; height: 31.2px; }
 
   .is-workshop .contact-icons {
     position: absolute;
     right: var(--edge);
     top: calc(50% + var(--art-height) / 2 + 16px);
-    width: calc(var(--art-height) * 1.328);
+    width: max-content;
     flex-direction: column;
-    gap: 8px;
   }
-  .is-workshop .contact-icons svg { width: clamp(24px, 3vw, 38px); height: auto; }
 }
 @media (max-width: 600px) {
   .home-header { gap: 6px; }
