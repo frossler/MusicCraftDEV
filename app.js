@@ -21,11 +21,20 @@ function frameScene() {
     : Math.max(width / 1672, height / 2400);
   const sceneWidth = 1672 * scale;
   const sceneHeight = 2941 * scale;
+  const foreground = isMobile ? Math.min(height * .14, 104) : 0;
+  stage.style.setProperty('--foreground', foreground + 'px');
+  const skyFraction = .62;
+  const extraSky = isMobile ? Math.max(0, height * 1.12 - sceneHeight * skyFraction) : 0;
+  const skyBlendStart = extraSky + sceneHeight * .682;
+  const skyBlendEnd = extraSky + sceneHeight * .74;
+  stage.style.setProperty('--sky-blend-start', skyBlendStart + 'px');
+  stage.style.setProperty('--sky-blend-end', skyBlendEnd + 'px');
+  stage.style.setProperty('--extended-image-height', (skyBlendStart / skyFraction) + 'px');
   stage.style.setProperty('--scene-width', sceneWidth + 'px');
-  stage.style.setProperty('--sky-height', '0px');
+  stage.style.setProperty('--sky-height', extraSky + 'px');
   stage.style.setProperty('--landscape-height', sceneHeight + 'px');
   stage.style.setProperty('--home-bottom', '0px');
-  stage.style.setProperty('--travel', Math.max(0, sceneHeight - height) + 'px');
+  stage.style.setProperty('--travel', Math.max(0, sceneHeight + extraSky + foreground - height) + 'px');
 }
 
 const sectionBadges = {"shop": "shop-header-back.png", "workshop": "workshop-header-back.png"};

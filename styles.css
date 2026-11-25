@@ -104,7 +104,7 @@ a.road-sign:hover img { filter: brightness(1.08); }
 }
 
 .workshop-art {
-  position: absolute; inset: 0;
+  position: absolute; top: 0; right: 0; bottom: 0; left: 0;
   background: center / cover no-repeat var(--workshop-image, url("assets/workshop-sunset.png"));
   transform: translateY(100%);
   transition: transform 1100ms cubic-bezier(.48,.03,.22,1);
@@ -174,7 +174,8 @@ a.road-sign:hover img { filter: brightness(1.08); }
 .shop-screen .contact-icons svg { width: 43px; height: 43px; }
 @media (min-width: 601px) {
   .home-header { justify-content: center; background: transparent; }
-  .transition-stage:not(.is-workshop) .shop-header { background: transparent; }
+  .shop-screen .shop-header { background: transparent; }
+  .is-workshop .contact-icons svg { filter: drop-shadow(0 2px 3px rgba(0,0,0,.32)); }
   .is-shop .shop-header { --logo-height: calc(var(--art-height) * .68); }
   .screen .contact-icons { gap: 0; }
   .screen .contact-icons svg { width: 36.55px; height: 36.55px; }
@@ -238,7 +239,7 @@ a.road-sign:hover img { filter: brightness(1.08); }
   .home-screen .contact-icons svg {
     width: 34px;
     height: 34px;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,.35));
+    filter: none;
   }
   .home-screen .road-signs {
     left: 50%;
@@ -297,7 +298,7 @@ a.road-sign:hover img { filter: brightness(1.08); }
   .home-screen .contact-icons svg {
     width: 34px;
     height: 34px;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,.35));
+    filter: none;
   }
   .home-screen .road-signs {
     left: 50%;
@@ -311,5 +312,77 @@ a.road-sign:hover img { filter: brightness(1.08); }
   #period {
     right: 14px;
     bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 600px) {
+  .shop-screen .shop-header { background: transparent; }
+  .upper-sky { display: block !important; background: none; }
+  .panorama::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%;
+    height: var(--sky-blend-end);
+    -webkit-mask-image: linear-gradient(to bottom, black var(--sky-blend-start), transparent);
+    mask-image: linear-gradient(to bottom, black var(--sky-blend-start), transparent);
+    background: var(--sky-image) center top / 100% var(--extended-image-height) no-repeat;
+    pointer-events: none;
+  }
+  .panorama { padding-bottom: var(--foreground); }
+  .panorama::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    height: calc(var(--foreground) + 66px);
+    background: linear-gradient(to bottom, transparent, #040a1299 36px, #040a12 66px);
+    pointer-events: none;
+  }
+  .home-screen .road-signs {
+    left: 55%; top: 40%; bottom: auto;
+    transform: translate(-50%, -50%);
+    width: min(218px, 60vw);
+  }
+  .home-screen .home-header {
+    top: auto; bottom: max(16px, env(safe-area-inset-bottom));
+    left: 50%; right: auto; transform: translateX(-50%);
+    padding: 0;
+  }
+  .home-screen .contact-icons {
+    display: grid; grid-auto-flow: column; gap: 20px;
+  }
+  .home-screen .contact-icons a {
+    width: 44px; height: 44px;
+  }
+  .transition-stage:not(.inside) #period {
+    top: max(12px, env(safe-area-inset-top)); bottom: auto;
+  }
+  .road-sign { position: relative; }
+  .road-sign::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 96%;
+    width: 55vw; height: 8px;
+    transform: translateY(-50%);
+    background:
+      repeating-linear-gradient(102deg, transparent 0 19px, #76654a45 20px, transparent 22px 37px),
+      linear-gradient(#7e7564, #d9d4c6 18%, #f7f2e5 38%, #c9c2b0 67%, #877f71);
+    border-block: 1px solid #756a56;
+    pointer-events: none;
+  }
+  .road-sign::after {
+    content: "";
+    position: absolute; left: 103%; top: 50%;
+    width: 6px; height: 12px; transform: translateY(-50%);
+    border-radius: 2px;
+    background: linear-gradient(90deg, #766a55, #e6deca 40%, #aa9d86 75%, #6c614e);
+    pointer-events: none;
+  }
+  .road-sign img { position: relative; }
+  .is-workshop .shop-brand { display: none; }
+  .workshop-art {
+    background-color: #151310;
+    background-size: cover;
+    background-position: 3.5% center;
+    background-repeat: no-repeat;
   }
 }
