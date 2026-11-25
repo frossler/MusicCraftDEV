@@ -196,16 +196,6 @@ a.road-sign:hover img { filter: brightness(1.08); }
 }
 
 
-.panorama::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(var(--landscape-height) - 18px);
-  height: 72px;
-  background: linear-gradient(180deg, rgba(8,18,30,0) 0%, rgba(8,18,30,.18) 36%, rgba(8,18,30,0) 100%);
-  pointer-events: none;
-}
 
 @media (max-width: 600px) {
   .home-screen .home-header {
@@ -240,6 +230,65 @@ a.road-sign:hover img { filter: brightness(1.08); }
     bottom: max(80px, calc(env(safe-area-inset-bottom) + 54px));
     transform: translateX(-50%);
     width: min(240px, 72vw);
+    gap: 10px;
+  }
+  #period {
+    right: 14px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+
+/* Final corrections MAIN mobile */
+.upper-sky { display: none !important; }
+.panorama {
+  overflow: hidden;
+}
+.landscape {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+  object-position: center top;
+}
+
+@media (max-width: 600px) {
+  .home-screen .home-header {
+    top: 0;
+    left: auto;
+    right: 0;
+    width: auto;
+    height: auto;
+    background: none;
+    padding: 14px 12px 0 0;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .home-screen .home-brand {
+    display: none !important;
+  }
+  .home-screen .contact-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .home-screen .contact-icons a:nth-child(1) { order: 3; }
+  .home-screen .contact-icons a:nth-child(2) { order: 2; }
+  .home-screen .contact-icons a:nth-child(3) { order: 1; }
+  .home-screen .contact-icons svg {
+    width: 34px;
+    height: 34px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,.35));
+  }
+  .home-screen .road-signs {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: max(44px, calc(env(safe-area-inset-bottom) + 24px));
+    transform: translateX(-50%);
+    width: min(242px, 72vw);
     gap: 10px;
   }
   #period {
